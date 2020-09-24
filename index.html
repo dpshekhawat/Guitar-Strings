@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guitar Strings</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">String E</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">String B</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">String G</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">String D</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">String A</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">String E</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">C</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">D</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">Dm</span>
+    </div>
+    <div data-key="59" class="key">
+      <kbd>;</kbd>
+      <span class="sound">E</span>
+    </div>
+  </div>
+  <footer>
+    <div class="name">Deependra Singh Shekhawat</div>
+    <div class="about">Inspired from <span>#JAVASCRIPT30</span></div>
+  </footer>
+
+  <audio data-key="65" src="music/E.mp3"></audio>
+  <audio data-key="83" src="music/B.mp3"></audio>
+  <audio data-key="68" src="music/G.mp3"></audio>
+  <audio data-key="70" src="music/D.mp3"></audio>
+  <audio data-key="71" src="music/A.mp3"></audio>
+  <audio data-key="72" src="music/6th_String_E_64kb.mp3"></audio>
+  <audio data-key="74" src="music/C_64kb.mp3"></audio>
+  <audio data-key="75" src="music/D_64kb.mp3"></audio>
+  <audio data-key="76" src="music/Dm_64kb.mp3"></audio>
+  <audio data-key="59" src="music/E_64kb.mp3"></audio>
+
+  <script>
+    function playSound(e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+      if (!audio) return;
+      audio.currentTime=0;
+      audio.play();
+      key.classList.add('playing');
+    };
+
+    function removeTransition(e) {
+      if (e.propertyName !== 'transform') return;
+      this.classList.remove('playing');
+    };
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+    window.addEventListener('keydown', playSound);
+  </script>
+</body>
+</html>
